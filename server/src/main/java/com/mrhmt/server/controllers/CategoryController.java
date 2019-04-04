@@ -5,8 +5,7 @@ import com.mrhmt.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Calendar;
 
 @RestController
 @RequestMapping("/category")
@@ -27,6 +26,7 @@ public class CategoryController {
 
     @PostMapping(value="")
     Category create(@RequestBody Category newCategory) {
+        newCategory.setModified(Calendar.getInstance().getTime());
         return categoryRepository.save(newCategory);
     }
 
@@ -36,7 +36,7 @@ public class CategoryController {
                 .map(category -> {
                     category.setName(updatingCategory.getName());
                     category.setValid(updatingCategory.isValid());
-                    category.setModified(Date.valueOf(LocalDate.now()));
+                    category.setModified(Calendar.getInstance().getTime());
 
                     return categoryRepository.save(category);
                 })

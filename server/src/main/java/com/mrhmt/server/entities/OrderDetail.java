@@ -7,9 +7,9 @@ import java.util.Date;
 
 @Entity
 @Table(name="order_details")
-public class OrderDetails implements Serializable {
+public class OrderDetail implements Serializable {
     @EmbeddedId
-    private OrderDetailsIdentify orderDetailsIdentify;
+    private OrderDetailIdentity orderDetailIdentify;
 
     @NotNull
     private double discount;
@@ -24,23 +24,23 @@ public class OrderDetails implements Serializable {
     @NotNull
     private boolean isValid;
 
-    public OrderDetails(OrderDetailsIdentify orderDetailsIdentify, @NotNull double discount, @NotNull int quantity, Date modified, @NotNull boolean isValid) {
-        this.orderDetailsIdentify=orderDetailsIdentify;
+    public OrderDetail(OrderDetailIdentity orderDetailIdentify, @NotNull double discount, @NotNull int quantity, Date modified, @NotNull boolean isValid) {
+        this.orderDetailIdentify=orderDetailIdentify;
         this.discount=discount;
         this.quantity=quantity;
         this.modified=modified;
         this.isValid=isValid;
     }
 
-    public OrderDetails() {
+    public OrderDetail() {
     }
 
-    public OrderDetailsIdentify getOrderDetailsIdentify() {
-        return orderDetailsIdentify;
+    public OrderDetailIdentity getOrderDetailIdentify() {
+        return orderDetailIdentify;
     }
 
-    public void setOrderDetailsIdentify(OrderDetailsIdentify orderDetailsIdentify) {
-        this.orderDetailsIdentify=orderDetailsIdentify;
+    public void setOrderDetailIdentify(OrderDetailIdentity orderDetailIdentify) {
+        this.orderDetailIdentify=orderDetailIdentify;
     }
 
     public double getDiscount() {
