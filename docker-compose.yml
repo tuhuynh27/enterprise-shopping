@@ -1,0 +1,46 @@
+version: "3"
+services:
+  api:
+    build:
+      context: ./server
+    links:
+      - database:database
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    image: server-dev
+    container_name: server-dev
+    volumes:
+      - ./server/src:/root/src/api/src
+      - ./server/out:/root/src/api/out
+      - ./server/build:/root/src/api/build
+    tty: true
+  web:
+    build:
+      context: ./webapp
+    expose:
+      - 3001
+    ports:
+      - 3001:3001
+    image: web-dev
+    container_name: web-dev
+    volumes:
+      - ./webapp/src:/root/src/app/src
+      - ./webapp/public:/root/src/app/public
+    tty: true
+  database:
+    image: mysql:5.7
+    container_name: db-dev
+    restart: always
+    environment:
+      MYSQL_DATABASE: "dev_db"
+      MYSQL_USER: "dev"
+      MYSQL_PASSWORD: "12345678"
+      MYSQL_ROOT_PASSWORD: "12345678"
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
