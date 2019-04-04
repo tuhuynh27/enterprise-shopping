@@ -20,14 +20,13 @@ services:
     build:
       context: ./webapp
     expose:
-      - 3001
+      - 4200
     ports:
-      - 3001:3001
+      - 4200:4200
     image: web-dev
     container_name: web-dev
     volumes:
       - ./webapp/src:/root/src/app/src
-      - ./webapp/public:/root/src/app/public
     tty: true
   database:
     image: mysql:5.7
