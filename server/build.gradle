@@ -63,9 +63,3 @@ dependencies {
 bootJar {
     mainClassName = 'com.mrhmt.server.App'
 }
-
-apply plugin: 'java'
-apply plugin: 'idea'
-
-// Define the main class for the application
-mainClassName = 'com.mrhmt.server.App'
