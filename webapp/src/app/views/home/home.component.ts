@@ -8,7 +8,6 @@ import { FakeService } from "@services/fake/fake.service";
 })
 export class HomeComponent implements OnInit {
   photos: Array<any> = [];
-
   constructor(private fakeService: FakeService) {}
 
   ngOnInit() {
