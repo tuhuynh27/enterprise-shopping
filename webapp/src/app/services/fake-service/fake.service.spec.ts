@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { FakeService } from './fake.service';
+import { FakeService } from "./fake.service";
 
-describe('FakeService', () => {
+describe("FakeService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: FakeService = TestBed.get(FakeService);
     expect(service).toBeTruthy();
   });

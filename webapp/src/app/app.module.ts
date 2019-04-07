@@ -9,8 +9,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { registerLocaleData } from "@angular/common";
 import en from "@angular/common/locales/en";
-import { LoginComponent } from "./login/login.component";
-import { HomeComponent } from "./home/home.component";
+import { LoginComponent } from "@views/login/login.component";
+import { HomeComponent } from "@views/home/home.component";
 
 registerLocaleData(en);
 

@@ -3,3 +3,11 @@
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
+
+body {
+  overflow-x: hidden;
+}
+
+.ant-layout {
+  min-width: 100%;
+}
