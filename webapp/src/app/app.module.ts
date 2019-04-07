@@ -12,6 +12,7 @@ import en from "@angular/common/locales/en";
 import { LoginComponent } from "@views/login/login.component";
 import { HomeComponent } from "@views/home/home.component";
 import { CategoryComponent } from "@views/category/category.component";
+import { ProductComponent } from './views/product/product.component';
 
 registerLocaleData(en);
 
@@ -20,7 +21,8 @@ registerLocaleData(en);
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CategoryComponent
+    CategoryComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 export interface Category {
   id: number;
   name: string;
-  modified: string;
+  modified: number;
   valid: boolean;
 }

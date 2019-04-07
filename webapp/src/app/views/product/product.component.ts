@@ -1,22 +1,22 @@
 import { Component, OnInit } from "@angular/core";
-import { Category } from "@models/category";
-import { CategoryService } from "@services/category/category.service";
+import { Product } from "@models/product";
+import { ProductService } from "@services/product/product.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
-  selector: "app-category",
-  templateUrl: "./category.component.html",
-  styleUrls: ["./category.component.scss"]
+  selector: "app-product",
+  templateUrl: "./product.component.html",
+  styleUrls: ["./product.component.scss"]
 })
-export class CategoryComponent implements OnInit {
-  listCategories: Array<Category> = [];
+export class ProductComponent implements OnInit {
+  listCategories: Array<Product> = [];
   addModalVisible = false;
   addForm: FormGroup;
   updateModalVisible = false;
   updateForm: FormGroup;
 
   constructor(
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private fb: FormBuilder
   ) {}
 
@@ -33,7 +33,7 @@ export class CategoryComponent implements OnInit {
       modified: [null]
     });
 
-    this.categoryService.getCategories().subscribe(data => {
+    this.productService.getProducts().subscribe(data => {
       this.listCategories = this.listCategories.concat(data);
     });
   }
@@ -52,21 +52,19 @@ export class CategoryComponent implements OnInit {
     }
 
     if (this.addForm.valid) {
-      this.categoryService
-        .createCategory(this.addForm.value)
-        .subscribe(data => {
-          this.listCategories = this.listCategories.concat(data);
+      this.productService.createProduct(this.addForm.value).subscribe(data => {
+        this.listCategories = this.listCategories.concat(data);
 
-          this.toggleAddModal();
-        });
+        this.toggleAddModal();
+      });
     }
   }
 
   toggleUpdateModal(id?: number) {
     if (id) {
-      const updatingCategory = this.listCategories.find(e => e.id === id);
+      const updatingProduct = this.listCategories.find(e => e.id === id);
 
-      this.updateForm.setValue(updatingCategory);
+      this.updateForm.setValue(updatingProduct);
     } else {
       this.updateForm.reset();
     }
@@ -82,8 +80,8 @@ export class CategoryComponent implements OnInit {
     }
 
     if (this.updateForm.valid) {
-      this.categoryService
-        .updateCategory(this.updateForm.value)
+      this.productService
+        .updateProduct(this.updateForm.value)
         .subscribe(data => {
           this.listCategories = this.listCategories.map(e => {
             if (e.id === data.id) {
@@ -99,7 +97,7 @@ export class CategoryComponent implements OnInit {
   }
 
   handleDelete(id: number) {
-    this.categoryService.deleteCategory(id).subscribe(() => {
+    this.productService.deleteProduct(id).subscribe(() => {
       this.listCategories = this.listCategories.filter(e => e.id !== id);
     });
   }
