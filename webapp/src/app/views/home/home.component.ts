@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FakeService } from "@services/fake-service/fake.service";
+import { FakeService } from "@services/fake/fake.service";
 
 @Component({
   selector: "app-home",
