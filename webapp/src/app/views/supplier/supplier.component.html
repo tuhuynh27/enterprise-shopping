@@ -36,6 +36,7 @@
 </nz-table>
 
 <nz-modal
+  [nzStyle]="{ top: '20px' }"
   [(nzVisible)]="addModalVisible"
   nzTitle="Add new"
   (nzOnCancel)="toggleAddModal()"
@@ -51,16 +52,43 @@
       <nz-form-label [nzSpan]="4">Name</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <input nz-input formControlName="name" placeholder="Enter name" />
-        <nz-form-explain
-          *ngIf="addForm.get('name')?.dirty && addForm.get('name')?.errors"
-          >Please input name!</nz-form-explain
-        >
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Company</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="company" placeholder="Enter company" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Address</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="address" placeholder="Enter address" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">City</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="city" placeholder="Enter city" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Phone</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="phone" placeholder="Enter phone" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Fax</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="fax" placeholder="Enter fax" />
       </nz-form-control>
     </nz-form-item>
   </form>
 </nz-modal>
 
 <nz-modal
+  [nzStyle]="{ top: '20px' }"
   [(nzVisible)]="updateModalVisible"
   nzTitle="Update"
   (nzOnCancel)="toggleUpdateModal()"
@@ -71,15 +99,38 @@
       <nz-form-label [nzSpan]="4">Name</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <input nz-input formControlName="name" placeholder="Enter name" />
-        <nz-form-explain
-          *ngIf="
-            updateForm.get('name')?.dirty && updateForm.get('name')?.errors
-          "
-          >Please input name!</nz-form-explain
-        >
       </nz-form-control>
     </nz-form-item>
-
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Company</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="company" placeholder="Enter company" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Address</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="address" placeholder="Enter address" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">City</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="city" placeholder="Enter city" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Phone</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="phone" placeholder="Enter phone" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Fax</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="fax" placeholder="Enter fax" />
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item>
       <nz-form-control [nzSpan]="14" [nzOffset]="4">
         <label nz-checkbox formControlName="valid">Valid</label>

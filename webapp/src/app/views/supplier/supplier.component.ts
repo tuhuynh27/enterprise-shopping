@@ -22,13 +22,50 @@ export class SupplierComponent implements OnInit {
 
   ngOnInit() {
     this.addForm = this.fb.group({
-      id: [null],
-      name: ["null", [Validators.required]]
+      name: ["null", [Validators.required]],
+      company: ["null", [Validators.required]],
+      address: ["null", [Validators.required]],
+      city: ["null", [Validators.required]],
+      phone: [
+        "null",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(8)
+        ]
+      ],
+      fax: [
+        "null",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(8)
+        ]
+      ]
     });
 
     this.updateForm = this.fb.group({
       id: [null],
-      name: [null, [Validators.required]],
+      name: ["null", [Validators.required]],
+      company: ["null", [Validators.required]],
+      address: ["null", [Validators.required]],
+      city: ["null", [Validators.required]],
+      phone: [
+        "null",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(8)
+        ]
+      ],
+      fax: [
+        "null",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(8)
+        ]
+      ],
       valid: [null, [Validators.required]],
       modified: [null]
     });

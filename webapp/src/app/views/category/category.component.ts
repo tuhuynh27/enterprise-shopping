@@ -22,7 +22,6 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.addForm = this.fb.group({
-      id: [null],
       name: ["null", [Validators.required]]
     });
 

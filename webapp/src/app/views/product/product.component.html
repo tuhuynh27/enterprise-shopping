@@ -18,7 +18,7 @@
     <tr *ngFor="let product of basicTable.data">
       <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
-      <td>{{ product.price }}</td>
+      <td>${{ product.price }}</td>
       <td>{{ product.quantity }}</td>
       <td>{{ product.thumbnail }}</td>
       <td>{{ product.category && product.category.name }}</td>
@@ -34,17 +34,13 @@
 </nz-table>
 
 <nz-modal
+  [nzStyle]="{ top: '20px' }"
   [(nzVisible)]="addModalVisible"
   nzTitle="Add new"
   (nzOnCancel)="toggleAddModal()"
   (nzOnOk)="handleAdd()"
 >
-  <form
-    nz-form
-    [nzLayout]="addForm.get('formLayout')?.value"
-    [formGroup]="addForm"
-    (ngSubmit)="handleAdd()"
-  >
+  <form nz-form [formGroup]="addForm" (ngSubmit)="handleAdd()">
     <nz-form-item>
       <nz-form-label [nzSpan]="4">Name</nz-form-label>
       <nz-form-control [nzSpan]="14">
@@ -119,6 +115,7 @@
 </nz-modal>
 
 <nz-modal
+  [nzStyle]="{ top: '20px' }"
   [(nzVisible)]="updateModalVisible"
   nzTitle="Update"
   (nzOnCancel)="toggleUpdateModal()"
@@ -193,6 +190,11 @@
             ></nz-option>
           </nz-select>
         </span>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="14" [nzOffset]="4">
+        <label nz-checkbox formControlName="valid">Valid</label>
       </nz-form-control>
     </nz-form-item>
   </form>

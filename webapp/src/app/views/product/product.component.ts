@@ -34,8 +34,14 @@ export class ProductComponent implements OnInit {
     this.addForm = this.fb.group({
       name: [null, [Validators.required]],
       description: [null, [Validators.required]],
-      price: [null, [Validators.required]],
-      quantity: [null, [Validators.required]],
+      price: [
+        null,
+        [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]
+      ],
+      quantity: [
+        null,
+        [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]
+      ],
       thumbnail: [null, [Validators.required]],
       category: this.fb.group({
         id: [null, [Validators.required]]
@@ -49,16 +55,33 @@ export class ProductComponent implements OnInit {
       id: [null],
       name: [null, [Validators.required]],
       description: [null, [Validators.required]],
-      price: [null, [Validators.required]],
-      quantity: [null, [Validators.required]],
+      price: [
+        null,
+        [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]
+      ],
+      quantity: [
+        null,
+        [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]
+      ],
       thumbnail: [null, [Validators.required]],
       category: this.fb.group({
-        id: [null, [Validators.required]]
+        id: [null, [Validators.required]],
+        name: [null],
+        modified: [null],
+        valid: [null]
       }),
       supplier: this.fb.group({
-        id: [null, [Validators.required]]
+        id: [null, [Validators.required]],
+        name: [null],
+        company: [null],
+        address: [null],
+        city: [null],
+        phone: [null],
+        fax: [null],
+        modified: [null],
+        valid: [null]
       }),
-      valid: [null],
+      valid: [null, [Validators.required]],
       modified: [null]
     });
 
@@ -82,8 +105,6 @@ export class ProductComponent implements OnInit {
   }
 
   handleAdd() {
-    console.log(this.addForm.value);
-
     // tslint:disable-next-line: forin
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
@@ -122,19 +143,14 @@ export class ProductComponent implements OnInit {
     }
 
     if (this.updateForm.valid) {
-      this.productService
-        .updateProduct(this.updateForm.value)
-        .subscribe(data => {
-          this.listProducts = this.listProducts.map(e => {
-            if (e.id === data.id) {
-              return data;
-            } else {
-              return e;
-            }
-          });
-
-          this.toggleUpdateModal();
+      this.productService.updateProduct(this.updateForm.value).subscribe(() => {
+        // Refresh
+        this.productService.getProducts().subscribe(refresh => {
+          this.listProducts = [].concat(refresh);
         });
+
+        this.toggleUpdateModal();
+      });
     }
   }
 

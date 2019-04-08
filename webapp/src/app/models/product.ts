@@ -5,8 +5,8 @@ export interface Product {
   price: number;
   quantity: number;
   thumbnail: string;
-  modified: number;
   category: number;
   supplier: number;
   valid: boolean;
+  modified: number;
 }
