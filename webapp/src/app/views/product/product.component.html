@@ -1,6 +1,6 @@
 <h2>List Products</h2>
 <button nz-button (click)="toggleAddModal()" nzType="primary">Add</button>
-<nz-table #basicTable [nzData]="listCategories">
+<nz-table #basicTable [nzData]="listProducts">
   <thead>
     <tr>
       <th>ID</th>
@@ -21,7 +21,7 @@
       <td>{{ product.price }}</td>
       <td>{{ product.quantity }}</td>
       <td>{{ product.thumbnail }}</td>
-      <td>{{ product.category }}</td>
+      <td>{{ product.category && product.category.name }}</td>
       <td>{{ product.supplier }}</td>
       <td>{{ product.valid === true ? "Valid" : "Invalid" }}</td>
       <td>
@@ -49,10 +49,70 @@
       <nz-form-label [nzSpan]="4">Name</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <input nz-input formControlName="name" placeholder="Enter name" />
-        <nz-form-explain
-          *ngIf="addForm.get('name')?.dirty && addForm.get('name')?.errors"
-          >Please input name!</nz-form-explain
-        >
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Desc</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="description"
+          placeholder="Enter description"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Price</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="price" placeholder="Enter price" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Quantity</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="quantity"
+          placeholder="Enter quantity"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Thumb</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="thumbnail"
+          placeholder="Enter thumbnail"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Category</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <span formGroupName="category">
+          <nz-select formControlName="id" nzPlaceHolder="Choose">
+            <nz-option
+              *ngFor="let category of listCategories"
+              [nzValue]="category.id"
+              [nzLabel]="category.name"
+            ></nz-option>
+          </nz-select>
+        </span>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Supplier</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <span formGroupName="supplier">
+          <nz-select formControlName="id" nzPlaceHolder="Choose">
+            <nz-option
+              *ngFor="let supplier of listSuppliers"
+              [nzValue]="supplier.id"
+              [nzLabel]="supplier.name"
+            ></nz-option>
+          </nz-select>
+        </span>
       </nz-form-control>
     </nz-form-item>
   </form>
@@ -69,12 +129,6 @@
       <nz-form-label [nzSpan]="4">Name</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <input nz-input formControlName="name" placeholder="Enter name" />
-        <nz-form-explain
-          *ngIf="
-            updateForm.get('name')?.dirty && updateForm.get('name')?.errors
-          "
-          >Please input name!</nz-form-explain
-        >
       </nz-form-control>
     </nz-form-item>
 

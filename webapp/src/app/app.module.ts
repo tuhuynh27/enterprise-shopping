@@ -13,6 +13,7 @@ import { LoginComponent } from "@views/login/login.component";
 import { HomeComponent } from "@views/home/home.component";
 import { CategoryComponent } from "@views/category/category.component";
 import { ProductComponent } from './views/product/product.component';
+import { SupplierComponent } from './views/supplier/supplier.component';
 
 registerLocaleData(en);
 
@@ -22,7 +23,8 @@ registerLocaleData(en);
     LoginComponent,
     HomeComponent,
     CategoryComponent,
-    ProductComponent
+    ProductComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,

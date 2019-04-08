@@ -41,7 +41,7 @@ public class SupplierController {
                     supplier.setPhone(updatingSupplier.getPhone());
                     supplier.setFax(updatingSupplier.getFax());
                     supplier.setValid(updatingSupplier.isValid());
-                    supplier.setModify(Date.valueOf(LocalDate.now()));
+                    supplier.setModified(Date.valueOf(LocalDate.now()));
 
                     return supplierRepository.save(supplier);
                 })

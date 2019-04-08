@@ -2,6 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { Product } from "@models/product";
 import { ProductService } from "@services/product/product.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { NzMessageService } from "ng-zorro-antd";
+import { Category } from "@models/category";
+import { CategoryService } from "@services/category/category.service";
+import { Supplier } from "@models/supplier";
+import { SupplierService } from "@services/supplier/supplier.service";
 
 @Component({
   selector: "app-product",
@@ -9,7 +14,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   styleUrls: ["./product.component.scss"]
 })
 export class ProductComponent implements OnInit {
-  listCategories: Array<Product> = [];
+  listProducts: Array<Product> = [];
+  listCategories: Array<Category> = [];
+  listSuppliers: Array<Supplier> = [];
   addModalVisible = false;
   addForm: FormGroup;
   updateModalVisible = false;
@@ -17,13 +24,25 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private fb: FormBuilder
+    private categoryService: CategoryService,
+    private supplierService: SupplierService,
+    private fb: FormBuilder,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
     this.addForm = this.fb.group({
-      id: [null],
-      name: ["null", [Validators.required]]
+      name: [null, [Validators.required]],
+      description: [null],
+      price: [null, [Validators.required]],
+      quantity: [null, [Validators.required]],
+      thumbnail: [null, [Validators.required]],
+      category: this.fb.group({
+        id: [null, [Validators.required]]
+      }),
+      supplier: this.fb.group({
+        id: [null, [Validators.required]]
+      })
     });
 
     this.updateForm = this.fb.group({
@@ -34,7 +53,15 @@ export class ProductComponent implements OnInit {
     });
 
     this.productService.getProducts().subscribe(data => {
+      this.listProducts = this.listProducts.concat(data);
+    });
+
+    this.categoryService.getCategories().subscribe(data => {
       this.listCategories = this.listCategories.concat(data);
+    });
+
+    this.supplierService.getSuppliers().subscribe(data => {
+      this.listSuppliers = this.listSuppliers.concat(data);
     });
   }
 
@@ -45,6 +72,8 @@ export class ProductComponent implements OnInit {
   }
 
   handleAdd() {
+    console.log(this.addForm.value);
+
     // tslint:disable-next-line: forin
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
@@ -53,7 +82,7 @@ export class ProductComponent implements OnInit {
 
     if (this.addForm.valid) {
       this.productService.createProduct(this.addForm.value).subscribe(data => {
-        this.listCategories = this.listCategories.concat(data);
+        this.listProducts = this.listProducts.concat(data);
 
         this.toggleAddModal();
       });
@@ -62,7 +91,7 @@ export class ProductComponent implements OnInit {
 
   toggleUpdateModal(id?: number) {
     if (id) {
-      const updatingProduct = this.listCategories.find(e => e.id === id);
+      const updatingProduct = this.listProducts.find(e => e.id === id);
 
       this.updateForm.setValue(updatingProduct);
     } else {
@@ -83,7 +112,7 @@ export class ProductComponent implements OnInit {
       this.productService
         .updateProduct(this.updateForm.value)
         .subscribe(data => {
-          this.listCategories = this.listCategories.map(e => {
+          this.listProducts = this.listProducts.map(e => {
             if (e.id === data.id) {
               return data;
             } else {
@@ -98,7 +127,7 @@ export class ProductComponent implements OnInit {
 
   handleDelete(id: number) {
     this.productService.deleteProduct(id).subscribe(() => {
-      this.listCategories = this.listCategories.filter(e => e.id !== id);
+      this.listProducts = this.listProducts.filter(e => e.id !== id);
     });
   }
 }

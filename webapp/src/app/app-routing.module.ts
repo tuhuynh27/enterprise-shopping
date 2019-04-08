@@ -5,6 +5,7 @@ import { HomeComponent } from "@views/home/home.component";
 import { LoginComponent } from "@views/login/login.component";
 import { CategoryComponent } from "@views/category/category.component";
 import { ProductComponent } from "@views/product/product.component";
+import { SupplierComponent } from "@views/supplier/supplier.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: "category",
         component: CategoryComponent
+      },
+      {
+        path: "supplier",
+        component: SupplierComponent
       },
       {
         path: "product",

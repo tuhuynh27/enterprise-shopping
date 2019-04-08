@@ -42,9 +42,9 @@ public class Supplier implements Serializable {
     private boolean isValid;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date modify;
+    private Date modified;
 
-    public Supplier(@NotNull @Size(max=50) String name, @NotNull @Size(max=50) String company, @NotNull @Size(max=150) String address, @NotNull @Size(max=50) String city, @NotNull @Size(max=25) String phone, @NotNull @Size(max=25) String fax, @NotNull boolean isValid, Date modify) {
+    public Supplier(@NotNull @Size(max=50) String name, @NotNull @Size(max=50) String company, @NotNull @Size(max=150) String address, @NotNull @Size(max=50) String city, @NotNull @Size(max=25) String phone, @NotNull @Size(max=25) String fax, @NotNull boolean isValid, Date modified) {
         this.name=name;
         this.company=company;
         this.address=address;
@@ -52,7 +52,7 @@ public class Supplier implements Serializable {
         this.phone=phone;
         this.fax=fax;
         this.isValid=isValid;
-        this.modify=modify;
+        this.modified=modified;
     }
 
     public Supplier() {
@@ -122,11 +122,11 @@ public class Supplier implements Serializable {
         isValid=valid;
     }
 
-    public Date getModify() {
-        return modify;
+    public Date getModified() {
+        return modified;
     }
 
-    public void setModify(Date modify) {
-        this.modify=modify;
+    public void setModified(Date modified) {
+        this.modified=modified;
     }
 }
