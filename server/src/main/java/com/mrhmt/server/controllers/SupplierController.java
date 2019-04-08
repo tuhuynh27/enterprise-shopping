@@ -30,6 +30,7 @@ public class SupplierController {
 
     @PostMapping(value="")
     Supplier create(@RequestBody Supplier newSupplier) {
+        newSupplier.setModified(Calendar.getInstance().getTime());
         return supplierRepository.save(newSupplier);
     }
 

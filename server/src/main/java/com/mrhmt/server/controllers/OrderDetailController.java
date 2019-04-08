@@ -51,6 +51,7 @@ public class OrderDetailController {
 
     @PostMapping("")
     OrderDetail create(@RequestBody OrderDetail newOrderDetail) {
+        newOrderDetail.setModified(Calendar.getInstance().getTime());
         return orderDetailRepository.save(newOrderDetail);
     }
 

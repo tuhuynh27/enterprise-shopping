@@ -31,6 +31,7 @@ public class ProductController {
 
     @PostMapping("")
     Product create(@RequestBody Product newProduct) {
+        newProduct.setModified(Calendar.getInstance().getTime());
         return productRepository.save(newProduct);
     }
 

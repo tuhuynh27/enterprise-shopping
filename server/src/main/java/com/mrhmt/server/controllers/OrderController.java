@@ -31,7 +31,6 @@ public class OrderController {
     @PostMapping("")
     Order create(@RequestBody Order newOrder) {
         newOrder.setOrderDate(Calendar.getInstance().getTime());
-
         return orderRepository.save(newOrder);
     }
 
