@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FakeService } from "@services/fake/fake.service";
+
+import { Product } from "@models/product";
+import { ProductService } from "@services/product/product.service";
+
+import { NzMessageService } from "ng-zorro-antd";
 
 @Component({
   selector: "app-home",
@@ -7,12 +11,58 @@ import { FakeService } from "@services/fake/fake.service";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-  photos: Array<any> = [];
-  constructor(private fakeService: FakeService) {}
+  listProducts: Array<Product> = [];
+  listProductsOrigin: Array<Product> = [];
+
+  searchValue = "";
+  loading = false;
+
+  constructor(
+    private productService: ProductService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit() {
-    this.fakeService.getPhotos().subscribe(data => {
-      this.photos = data;
+    this.loading = true;
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 400);
+
+    this.productService.getProducts().subscribe(data => {
+      this.listProducts = this.listProducts.concat(data);
+      this.listProductsOrigin = this.listProductsOrigin.concat(data);
     });
   }
+
+  addCart(name: string) {
+    this.message.create(
+      "success",
+      `Added <strong>${name}</strong> to your cart`
+    );
+  }
+
+  reset(): void {
+    this.searchValue = "";
+    this.search();
+  }
+
+  search(): void {
+    if (!this.searchValue.trim()) {
+      this.searchFilter();
+    }
+
+    this.loading = true;
+
+    setTimeout(this.searchFilter, 400);
+  }
+
+  searchFilter = () => {
+    this.listProducts = this.listProductsOrigin.filter(e =>
+      e.name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase())
+    );
+
+    this.loading = false;
+    // tslint:disable-next-line: semicolon
+  };
 }

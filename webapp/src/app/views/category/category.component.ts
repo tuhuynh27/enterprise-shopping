@@ -10,10 +10,14 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class CategoryComponent implements OnInit {
   listCategories: Array<Category> = [];
+  listCategoriesOrigin: Array<Category> = [];
   addModalVisible = false;
   addForm: FormGroup;
   updateModalVisible = false;
   updateForm: FormGroup;
+
+  searchValue = "";
+  loading = false;
 
   constructor(
     private categoryService: CategoryService,
@@ -21,6 +25,12 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // First loading
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 200);
+
     this.addForm = this.fb.group({
       name: ["null", [Validators.required]]
     });
@@ -34,6 +44,7 @@ export class CategoryComponent implements OnInit {
 
     this.categoryService.getCategories().subscribe(data => {
       this.listCategories = this.listCategories.concat(data);
+      this.listCategoriesOrigin = this.listCategoriesOrigin.concat(data);
     });
   }
 
@@ -102,4 +113,30 @@ export class CategoryComponent implements OnInit {
       this.listCategories = this.listCategories.filter(e => e.id !== id);
     });
   }
+
+  reset(): void {
+    this.searchValue = "";
+    this.search();
+  }
+
+  search(): void {
+    if (!this.searchValue.trim()) {
+      this.searchFilter();
+
+      return;
+    }
+
+    this.loading = true;
+
+    setTimeout(this.searchFilter, 400);
+  }
+
+  searchFilter = () => {
+    this.listCategories = this.listCategoriesOrigin.filter(e =>
+      e.name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase())
+    );
+
+    this.loading = false;
+    // tslint:disable-next-line: semicolon
+  };
 }

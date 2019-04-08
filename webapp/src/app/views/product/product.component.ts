@@ -15,12 +15,16 @@ import { SupplierService } from "@services/supplier/supplier.service";
 })
 export class ProductComponent implements OnInit {
   listProducts: Array<Product> = [];
+  listProductsOrigin: Array<Product> = [];
   listCategories: Array<Category> = [];
   listSuppliers: Array<Supplier> = [];
   addModalVisible = false;
   addForm: FormGroup;
   updateModalVisible = false;
   updateForm: FormGroup;
+
+  searchValue = "";
+  loading = false;
 
   constructor(
     private productService: ProductService,
@@ -31,6 +35,12 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // First loading
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 200);
+
     this.addForm = this.fb.group({
       name: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -87,6 +97,7 @@ export class ProductComponent implements OnInit {
 
     this.productService.getProducts().subscribe(data => {
       this.listProducts = this.listProducts.concat(data);
+      this.listProductsOrigin = this.listProductsOrigin.concat(data);
     });
 
     this.categoryService.getCategories().subscribe(data => {
@@ -116,6 +127,7 @@ export class ProductComponent implements OnInit {
         // Refresh
         this.productService.getProducts().subscribe(refresh => {
           this.listProducts = [].concat(refresh);
+          this.listProductsOrigin = [].concat(refresh);
         });
 
         this.toggleAddModal();
@@ -147,6 +159,7 @@ export class ProductComponent implements OnInit {
         // Refresh
         this.productService.getProducts().subscribe(refresh => {
           this.listProducts = [].concat(refresh);
+          this.listProductsOrigin = [].concat(refresh);
         });
 
         this.toggleUpdateModal();
@@ -159,4 +172,30 @@ export class ProductComponent implements OnInit {
       this.listProducts = this.listProducts.filter(e => e.id !== id);
     });
   }
+
+  reset(): void {
+    this.searchValue = "";
+    this.search();
+  }
+
+  search(): void {
+    if (!this.searchValue.trim()) {
+      this.searchFilter();
+
+      return;
+    }
+
+    this.loading = true;
+
+    setTimeout(this.searchFilter, 400);
+  }
+
+  searchFilter = () => {
+    this.listProducts = this.listProductsOrigin.filter(e =>
+      e.name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase())
+    );
+
+    this.loading = false;
+    // tslint:disable-next-line: semicolon
+  };
 }

@@ -20,10 +20,21 @@
           >
         </a>
       </li>
-      <li nz-menu-item>
-        <span
-          ><i nz-icon type="coffee"></i><span class="nav-text">News</span></span
-        >
+      <li nz-submenu>
+        <span title>
+          <i nz-icon type="folder"></i>
+          <span>Category</span>
+        </span>
+        <ul>
+          <li nz-menu-item *ngFor="let category of listCategories">
+            <a routerLink="/admin/{{ category.id }}">
+              <span
+                ><i nz-icon type="folder"></i
+                ><span class="nav-text">{{ category.name }}</span></span
+              >
+            </a>
+          </li>
+        </ul>
       </li>
       <li nz-submenu>
         <span title>

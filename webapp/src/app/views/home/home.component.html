@@ -1,25 +1,120 @@
-<h2>Featured Products</h2>
-<div nz-row [nzGutter]="16">
-  <div
-    *ngFor="let photo of photos; i as index"
-    nz-col
-    [nzLg]="6"
-    [nzMd]="8"
-    [nzXs]="12"
-  >
-    <nz-card
-      nzHoverable
-      style="width:240px"
-      [nzCover]="coverTemplate"
-      style="margin-bottom: 1rem;"
+<nz-page-header nzTitle="Enterprise Shopping">
+  <nz-page-header-content>
+    <div class="wrap">
+      <div class="content">
+        <div class="content">
+          <p>
+            Enterprise Shopping built on top of <strong>JavaEE</strong> and
+            <strong>Angular</strong> make the shop more reliable than ever.
+          </p>
+          <p>
+            The definition about
+            <strong>Single Page Application (SPA)</strong> it was all the
+            resources of HTML, CSS, and JavaScript is retrieved with a single
+            page load and the appropriate resources are dynamically loaded and
+            added to the page as necessary.
+          </p>
+          <p class="content-link">
+            <a>
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"
+                alt="start"
+              />Quick Start
+            </a>
+            <a>
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
+                alt="info"
+              />Product Info
+            </a>
+            <a>
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
+                alt="doc"
+              />Product Doc
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="extra-content">
+        <img
+          src="https://gw.alipayobjects.com/mdn/mpaas_user/afts/img/A*KsfVQbuLRlYAAAAAAAAAAABjAQAAAQ/original"
+          alt="content"
+        />
+      </div>
+    </div>
+  </nz-page-header-content>
+</nz-page-header>
+
+<nz-divider nzText="Featured Products"></nz-divider>
+
+<nz-input-group
+  nzSearch
+  [nzAddOnAfter]="suffixIconButton"
+  style="margin-bottom: 1rem"
+>
+  <input
+    type="text"
+    nz-input
+    placeholder="Search product name"
+    [(ngModel)]="searchValue"
+    (keyup.enter)="search()"
+  />
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button nz-button nzType="primary" nzSearch (click)="search()">
+    <i nz-icon type="search"></i>
+  </button>
+</ng-template>
+<nz-spin [nzSpinning]="loading">
+  <div nz-row [nzGutter]="8">
+    <div
+      *ngFor="let product of listProducts; i as index"
+      nz-col
+      [nzSpan]="8"
+      [nzLg]="6"
+      [nzMd]="8"
+      [nzXs]="12"
     >
-      <nz-card-meta
-        [nzTitle]="photo.title"
-        [nzDescription]="photo.url"
-      ></nz-card-meta>
-    </nz-card>
-    <ng-template #coverTemplate>
-      <img alt="example" src="{{ photo.thumbnailUrl }}" />
-    </ng-template>
+      <nz-card
+        nzHoverable
+        style="width:240px"
+        [nzCover]="coverTemplate"
+        style="margin-bottom: 1rem;"
+      >
+        <nz-card-meta
+          [nzTitle]="product.name"
+          [nzDescription]="product.description"
+        ></nz-card-meta>
+        <div style="margin-top: 10px;">
+          <p>Price: $500</p>
+          <p>Amount: 100</p>
+          <p>
+            <button
+              (click)="addCart(product.name)"
+              nz-button
+              nzType="primary"
+              nzBlock
+            >
+              <i nz-icon type="shopping-cart"></i>
+              Add to cart
+            </button>
+          </p>
+        </div>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img
+          alt="example"
+          src="{{
+            product.thumbnail ||
+              'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+          }}"
+        />
+      </ng-template>
+    </div>
   </div>
-</div>
+
+  <div style="text-align: center;">
+    <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+  </div>
+</nz-spin>

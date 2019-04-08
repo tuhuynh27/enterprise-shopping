@@ -10,10 +10,14 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class SupplierComponent implements OnInit {
   listSuppliers: Array<Supplier> = [];
+  listSuppliersOrigin: Array<Supplier> = [];
   addModalVisible = false;
   addForm: FormGroup;
   updateModalVisible = false;
   updateForm: FormGroup;
+
+  searchValue = "";
+  loading = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -21,6 +25,12 @@ export class SupplierComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // First loading
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 200);
+
     this.addForm = this.fb.group({
       name: ["null", [Validators.required]],
       company: ["null", [Validators.required]],
@@ -72,6 +82,7 @@ export class SupplierComponent implements OnInit {
 
     this.supplierService.getSuppliers().subscribe(data => {
       this.listSuppliers = this.listSuppliers.concat(data);
+      this.listSuppliersOrigin = this.listSuppliersOrigin.concat(data);
     });
   }
 
@@ -140,4 +151,30 @@ export class SupplierComponent implements OnInit {
       this.listSuppliers = this.listSuppliers.filter(e => e.id !== id);
     });
   }
+
+  reset(): void {
+    this.searchValue = "";
+    this.search();
+  }
+
+  search(): void {
+    if (!this.searchValue.trim()) {
+      this.searchFilter();
+
+      return;
+    }
+
+    this.loading = true;
+
+    setTimeout(this.searchFilter, 400);
+  }
+
+  searchFilter = () => {
+    this.listSuppliers = this.listSuppliersOrigin.filter(e =>
+      e.name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase())
+    );
+
+    this.loading = false;
+    // tslint:disable-next-line: semicolon
+  };
 }
