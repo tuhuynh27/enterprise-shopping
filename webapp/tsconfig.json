@@ -16,7 +16,8 @@
     "paths": {
       "@views/*": ["src/app/views/*"],
       "@services/*": ["src/app/services/*"],
-      "@models/*": ["src/app/models/*"]
+      "@models/*": ["src/app/models/*"],
+      "@config/*": ["src/configs/*"]
     }
   }
 }

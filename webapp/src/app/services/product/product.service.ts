@@ -3,12 +3,13 @@ import { Product } from "@models/product";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Category } from "@models/category";
+import { BASE_URL } from "@config/endpoint";
 
 @Injectable({
   providedIn: "root"
 })
 export class ProductService {
-  private endpoint = "http://localhost:3000/api/product";
+  private endpoint = BASE_URL + "/product";
   constructor(private http: HttpClient) {}
 
   public getProducts(): Observable<Product> {
