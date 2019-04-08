@@ -10,8 +10,12 @@ import java.util.Calendar;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     // GET list items
     @GetMapping("")

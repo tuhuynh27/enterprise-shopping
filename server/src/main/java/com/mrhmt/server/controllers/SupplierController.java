@@ -5,14 +5,17 @@ import com.mrhmt.server.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Calendar;
 
 @RestController
 @RequestMapping("/supplier")
 public class SupplierController {
+    private final SupplierRepository supplierRepository;
+
     @Autowired
-    private SupplierRepository supplierRepository;
+    public SupplierController(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
+    }
     
     @GetMapping(value="")
     Iterable<Supplier> readAll() {
@@ -41,7 +44,7 @@ public class SupplierController {
                     supplier.setPhone(updatingSupplier.getPhone());
                     supplier.setFax(updatingSupplier.getFax());
                     supplier.setValid(updatingSupplier.isValid());
-                    supplier.setModified(Date.valueOf(LocalDate.now()));
+                    supplier.setModified(Calendar.getInstance().getTime());
 
                     return supplierRepository.save(supplier);
                 })

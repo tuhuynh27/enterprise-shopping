@@ -10,8 +10,12 @@ import java.util.Calendar;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+    private final OrderRepository orderRepository;
+
     @Autowired
-    private OrderRepository orderRepository;
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @GetMapping("")
     Iterable<Order> readAll() {

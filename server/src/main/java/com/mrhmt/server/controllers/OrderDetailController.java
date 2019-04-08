@@ -4,6 +4,7 @@ import com.mrhmt.server.entities.Order;
 import com.mrhmt.server.entities.OrderDetail;
 import com.mrhmt.server.entities.OrderDetailIdentity;
 import com.mrhmt.server.entities.Product;
+
 import com.mrhmt.server.repositories.OrderDetailRepository;
 import com.mrhmt.server.repositories.OrderRepository;
 import com.mrhmt.server.repositories.ProductRepository;
@@ -16,14 +17,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/order_detail")
 public class OrderDetailController {
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
+    public OrderDetailController(OrderDetailRepository orderDetailRepository, OrderRepository orderRepository, ProductRepository productRepository) {
+        this.orderDetailRepository = orderDetailRepository;
+        this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
+    }
 
     private OrderDetailIdentity commonFindId(int orderId, int productId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);

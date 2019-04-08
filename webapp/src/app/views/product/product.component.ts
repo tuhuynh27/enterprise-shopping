@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.addForm = this.fb.group({
       name: [null, [Validators.required]],
-      description: [null],
+      description: [null, [Validators.required]],
       price: [null, [Validators.required]],
       quantity: [null, [Validators.required]],
       thumbnail: [null, [Validators.required]],
@@ -48,7 +48,17 @@ export class ProductComponent implements OnInit {
     this.updateForm = this.fb.group({
       id: [null],
       name: [null, [Validators.required]],
-      valid: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      price: [null, [Validators.required]],
+      quantity: [null, [Validators.required]],
+      thumbnail: [null, [Validators.required]],
+      category: this.fb.group({
+        id: [null, [Validators.required]]
+      }),
+      supplier: this.fb.group({
+        id: [null, [Validators.required]]
+      }),
+      valid: [null],
       modified: [null]
     });
 
@@ -81,8 +91,11 @@ export class ProductComponent implements OnInit {
     }
 
     if (this.addForm.valid) {
-      this.productService.createProduct(this.addForm.value).subscribe(data => {
-        this.listProducts = this.listProducts.concat(data);
+      this.productService.createProduct(this.addForm.value).subscribe(() => {
+        // Refresh
+        this.productService.getProducts().subscribe(refresh => {
+          this.listProducts = [].concat(refresh);
+        });
 
         this.toggleAddModal();
       });

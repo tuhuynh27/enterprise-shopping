@@ -10,8 +10,12 @@ import java.util.Calendar;
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+    private final CategoryRepository categoryRepository;
+
     @Autowired
-    private CategoryRepository categoryRepository;
+    public CategoryController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @GetMapping(value="")
     Iterable<Category> readAll() {

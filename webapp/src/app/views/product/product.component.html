@@ -22,7 +22,7 @@
       <td>{{ product.quantity }}</td>
       <td>{{ product.thumbnail }}</td>
       <td>{{ product.category && product.category.name }}</td>
-      <td>{{ product.supplier }}</td>
+      <td>{{ product.supplier && product.supplier.name }}</td>
       <td>{{ product.valid === true ? "Valid" : "Invalid" }}</td>
       <td>
         <a (click)="toggleUpdateModal(product.id)">Update</a>
@@ -131,10 +131,68 @@
         <input nz-input formControlName="name" placeholder="Enter name" />
       </nz-form-control>
     </nz-form-item>
-
     <nz-form-item>
-      <nz-form-control [nzSpan]="14" [nzOffset]="4">
-        <label nz-checkbox formControlName="valid">Valid</label>
+      <nz-form-label [nzSpan]="4">Desc</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="description"
+          placeholder="Enter description"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Price</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="price" placeholder="Enter price" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Quantity</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="quantity"
+          placeholder="Enter quantity"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Thumb</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input
+          nz-input
+          formControlName="thumbnail"
+          placeholder="Enter thumbnail"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Category</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <span formGroupName="category">
+          <nz-select formControlName="id" nzPlaceHolder="Choose">
+            <nz-option
+              *ngFor="let category of listCategories"
+              [nzValue]="category.id"
+              [nzLabel]="category.name"
+            ></nz-option>
+          </nz-select>
+        </span>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Supplier</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <span formGroupName="supplier">
+          <nz-select formControlName="id" nzPlaceHolder="Choose">
+            <nz-option
+              *ngFor="let supplier of listSuppliers"
+              [nzValue]="supplier.id"
+              [nzLabel]="supplier.name"
+            ></nz-option>
+          </nz-select>
+        </span>
       </nz-form-control>
     </nz-form-item>
   </form>

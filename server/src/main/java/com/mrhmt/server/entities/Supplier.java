@@ -39,7 +39,7 @@ public class Supplier implements Serializable {
 
     @NotNull
     @Column(name="is_valid")
-    private boolean isValid;
+    private boolean isValid = true;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;

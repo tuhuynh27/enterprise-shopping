@@ -31,7 +31,7 @@ public class Product implements Serializable {
     @Min(value = 0)
     @Max(value = Long.MAX_VALUE, message = "Mus less than " + Long.MAX_VALUE)
     @Digits(integer = Integer.MAX_VALUE, fraction = 0)
-    private int quantity;
+    private int quantity = 0;
 
     @NotNull
     @Size(max = 150)
@@ -39,7 +39,7 @@ public class Product implements Serializable {
 
     @Column(name="is_valid")
     @NotNull
-    private boolean isValid;
+    private boolean isValid = true;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;

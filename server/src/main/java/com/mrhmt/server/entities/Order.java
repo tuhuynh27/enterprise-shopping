@@ -17,29 +17,30 @@ public class Order implements Serializable {
     @Size(max = 150)
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modified;
+    @Column(name="user_id")
+    private int userId;
 
     @Column(name="order_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
-    @Column(name="is_shipped")
-    private boolean isShipped;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modified;
 
-    @Column(name="user_id")
-    private int userId;
+    @Column(name="is_shipped")
+    @NotNull
+    private boolean isShipped = false;
 
     @Column(name="is_valid")
     @NotNull
-    private boolean isValid;
+    private boolean isValid = true;
 
-    public Order(@NotNull @Size(max=150) String description, Date modified, Date orderDate, boolean isShipped, int userId, @NotNull boolean isValid) {
+    public Order(@NotNull @Size(max=150) String description, int userId, Date orderDate, Date modified, @NotNull boolean isShipped, @NotNull boolean isValid) {
         this.description=description;
-        this.modified=modified;
-        this.orderDate=orderDate;
-        this.isShipped=isShipped;
         this.userId=userId;
+        this.orderDate=orderDate;
+        this.modified=modified;
+        this.isShipped=isShipped;
         this.isValid=isValid;
     }
 
@@ -62,12 +63,12 @@ public class Order implements Serializable {
         this.description=description;
     }
 
-    public Date getModified() {
-        return modified;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setModified(Date modified) {
-        this.modified=modified;
+    public void setUserId(int userId) {
+        this.userId=userId;
     }
 
     public Date getOrderDate() {
@@ -78,20 +79,20 @@ public class Order implements Serializable {
         this.orderDate=orderDate;
     }
 
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified=modified;
+    }
+
     public boolean isShipped() {
         return isShipped;
     }
 
     public void setShipped(boolean shipped) {
         isShipped=shipped;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId=userId;
     }
 
     public boolean isValid() {

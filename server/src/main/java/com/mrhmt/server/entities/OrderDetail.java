@@ -1,6 +1,8 @@
 package com.mrhmt.server.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,9 +14,12 @@ public class OrderDetail implements Serializable {
     private OrderDetailIdentity orderDetailIdentify;
 
     @NotNull
+    @Min(value = 0)
     private double discount;
 
     @NotNull
+    @Min(value = 0)
+    @Max(value = Long.MAX_VALUE, message = "Mus less than " + Long.MAX_VALUE)
     private int quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -22,7 +27,7 @@ public class OrderDetail implements Serializable {
 
     @Column(name="is_valid")
     @NotNull
-    private boolean isValid;
+    private boolean isValid = true;
 
     public OrderDetail(OrderDetailIdentity orderDetailIdentify, @NotNull double discount, @NotNull int quantity, Date modified, @NotNull boolean isValid) {
         this.orderDetailIdentify=orderDetailIdentify;
