@@ -5,6 +5,8 @@ import { ProductService } from "@services/product/product.service";
 
 import { NzMessageService } from "ng-zorro-antd";
 
+import { addToCart } from "@utils/cart.utils";
+
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -35,11 +37,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  addCart(name: string) {
+  addCart(product: Product) {
     this.message.create(
       "success",
-      `Added <strong>${name}</strong> to your cart`
+      `Added <strong>${product.name}</strong> to your cart`
     );
+
+    addToCart(product.id, 1);
   }
 
   reset(): void {

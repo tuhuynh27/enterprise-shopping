@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Product } from "@models/product";
 import { CategoryService } from "@services/category/category.service";
 import { Category } from "@models/category";
+import { NzMessageService } from "ng-zorro-antd";
+import { addToCart } from "@utils/cart.utils";
 
 @Component({
   selector: "app-category-view",
@@ -20,7 +22,8 @@ export class CategoryViewComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private redirectRouter: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
@@ -58,5 +61,14 @@ export class CategoryViewComponent implements OnInit {
     this.categoryService.getCategoryProducts(this.cateId).subscribe(data => {
       this.listProducts = [].concat(data);
     });
+  }
+
+  addCart(product: Product) {
+    this.message.create(
+      "success",
+      `Added <strong>${product.name}</strong> to your cart`
+    );
+
+    addToCart(product.id, 1);
   }
 }

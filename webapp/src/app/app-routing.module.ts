@@ -11,6 +11,7 @@ import { SupplierComponent } from "@views/supplier/supplier.component";
 import { AuthGuardService as AuthGuard } from "@services/auth/auth-guard.service";
 import { CategoryViewComponent } from "@views/category-view/category-view.component";
 import { OrderComponent } from "@views/order/order.component";
+import { CartComponent } from "@views/cart/cart.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: "category/:id",
     component: CategoryViewComponent
+  },
+  {
+    path: "cart",
+    component: CartComponent
   },
   {
     path: "admin",

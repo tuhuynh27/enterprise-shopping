@@ -57,10 +57,12 @@
         </ul>
       </li>
       <li nz-menu-item>
-        <span
-          ><i nz-icon type="shopping-cart"></i
-          ><span class="nav-text">Shopping Cart</span></span
-        >
+        <a routerLink="/cart">
+          <span
+            ><i nz-icon type="shopping-cart"></i
+            ><span class="nav-text">Shopping Cart</span></span
+          >
+        </a>
       </li>
       <li nz-menu-item *ngIf="!isLogged">
         <a routerLink="/login">

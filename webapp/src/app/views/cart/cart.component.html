@@ -1,0 +1,54 @@
+<h2>My Cart</h2>
+<button
+  nz-button
+  nzType="secondary"
+  (nzOnConfirm)="empty()"
+  nz-popconfirm
+  nzTitle="Are you sure you want to empty cart?"
+  [disabled]="listCart.length === 0"
+>
+  <i nz-icon nzType="close-square" nzTheme="outline"></i>Empty Cart
+</button>
+<nz-table #basicTable [nzData]="listCart" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th></th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td><img src="{{ data.thumbnail }}" style="max-width: 100px;" /></td>
+      <td>${{ data.price }}</td>
+      <td>{{ data.quantity }}</td>
+      <td>
+        <a (click)="modifyCart(data.id, 1)">+</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="modifyCart(data.id, -1)">-</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div style="display: flex; justify-content: flex-end">
+  <span
+    >Total fee: <strong>${{ totalFee }}</strong></span
+  >
+  <button
+    [disabled]="listCart.length === 0"
+    nz-button
+    nzType="primary"
+    style="margin-left: auto; margin-right: 0; margin-top: 1rem;"
+    (nzOnConfirm)="checkout()"
+    nz-popconfirm
+    nzTitle="Are you sure to check out?"
+    nzPlacement="leftBottom"
+  >
+    <i nz-icon nzType="shopping" nzTheme="outline"></i>
+    Checkout!
+  </button>
+</div>

@@ -21,6 +21,7 @@ import { CategoryViewComponent } from "./views/category-view/category-view.compo
 import { OrderComponent } from "./views/order/order.component";
 
 import { TimeAgoPipe } from "time-ago-pipe";
+import { CartComponent } from './views/cart/cart.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -39,7 +40,8 @@ registerLocaleData(en);
     SupplierComponent,
     SignupComponent,
     CategoryViewComponent,
-    OrderComponent
+    OrderComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
