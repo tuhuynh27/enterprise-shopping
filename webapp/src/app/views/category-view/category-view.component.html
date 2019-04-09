@@ -34,6 +34,7 @@
               nz-button
               nzType="primary"
               nzBlock
+              [disabled]="!product.quantity"
             >
               <i nz-icon type="shopping-cart"></i>
               Add to cart

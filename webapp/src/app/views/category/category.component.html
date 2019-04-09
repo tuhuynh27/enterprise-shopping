@@ -39,7 +39,7 @@
       <td>{{ category.id }}</td>
       <td>{{ category.name }}</td>
       <td>{{ category.valid === true ? "Valid" : "Invalid" }}</td>
-      <td>{{ category.modified | date: "medium" }}</td>
+      <td>{{ category.modified | timeAgo }}</td>
       <td>
         <a (click)="toggleUpdateModal(category.id)">Update</a>
         <nz-divider nzType="vertical"></nz-divider>

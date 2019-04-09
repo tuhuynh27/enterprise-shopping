@@ -44,7 +44,7 @@
       <td>{{ supplier.phone }}</td>
       <td>{{ supplier.fax }}</td>
       <td>{{ supplier.valid === true ? "Valid" : "Invalid" }}</td>
-      <td>{{ supplier.modified | date: "medium" }}</td>
+      <td>{{ supplier.modified | timeAgo }}</td>
       <td>
         <a (click)="toggleUpdateModal(supplier.id)">Update</a>
         <nz-divider nzType="vertical"></nz-divider>

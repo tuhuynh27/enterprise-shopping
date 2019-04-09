@@ -19,7 +19,12 @@
     <i nz-icon type="search"></i>
   </button>
 </ng-template>
-<nz-table #basicTable [nzData]="listProducts" [nzLoading]="loading">
+<nz-table
+  #basicTable
+  [nzData]="listProducts"
+  [nzPageSize]="5"
+  [nzLoading]="loading"
+>
   <thead>
     <tr>
       <th>ID</th>

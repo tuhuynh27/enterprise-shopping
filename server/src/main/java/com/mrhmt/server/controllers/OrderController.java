@@ -7,6 +7,7 @@ import com.mrhmt.server.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Calendar;
 
 @RestController
@@ -40,7 +41,17 @@ public class OrderController {
     @PostMapping("")
     Order create(@RequestBody Order newOrder) {
         newOrder.setOrderDate(Calendar.getInstance().getTime());
+        newOrder.setModified(Calendar.getInstance().getTime());
         return orderRepository.save(newOrder);
+    }
+
+    @PostMapping("/{id}/shipped")
+    Order shipped(@PathVariable int id) {
+        Order shipped = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException (Integer.toString(id)));
+        shipped.setShipped(true);
+        shipped.setModified(Calendar.getInstance().getTime());
+
+        return orderRepository.save(shipped);
     }
 
     @PutMapping("/{id}")
@@ -48,7 +59,6 @@ public class OrderController {
         return orderRepository.findById(id)
                 .map(order -> {
                     order.setDescription(updatingOrder.getDescription());
-                    order.setOrderDate(updatingOrder.getOrderDate());
                     order.setShipped(updatingOrder.isShipped());
                     order.setUserId(updatingOrder.getUserId());
                     order.setValid(updatingOrder.isValid());
