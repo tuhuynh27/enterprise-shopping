@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit {
       userName: [null, [Validators.required, Validators.minLength(1)]],
       password: [null, [Validators.required, Validators.minLength(1)]]
     });
+
+    const token = localStorage.getItem("access_token");
+    if (!this.authService.jwtHelper.isTokenExpired(token)) {
+      this.router.navigate(["/"]);
+    }
   }
 
   submitLogin() {
@@ -45,7 +50,10 @@ export class LoginComponent implements OnInit {
         })
         .subscribe(
           data => {
-            this.authService.loginSuccess();
+            this.authService.loginSuccess(data.token);
+
+            // Save
+            localStorage.setItem("access_token", data.token);
 
             this.message.create(
               "success",

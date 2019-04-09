@@ -16,6 +16,7 @@ import { ProductComponent } from "./views/product/product.component";
 import { SupplierComponent } from "./views/supplier/supplier.component";
 
 import { JwtModule } from "@auth0/angular-jwt";
+import { SignupComponent } from './views/signup/signup.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -30,7 +31,8 @@ registerLocaleData(en);
     HomeComponent,
     CategoryComponent,
     ProductComponent,
-    SupplierComponent
+    SupplierComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

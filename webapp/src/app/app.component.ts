@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   listCategories: Array<Category> = [];
 
   isLogged = false;
+  name: string;
 
   constructor(
     private categoryService: CategoryService,
@@ -25,11 +26,21 @@ export class AppComponent implements OnInit {
     this.authService.isLogged.subscribe(status => {
       this.isLogged = status;
     });
+
+    this.authService.name.subscribe(data => {
+      this.name = data;
+    });
   }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(data => {
       this.categoryService.setListCategories(data);
     });
+  }
+
+  logout() {
+    localStorage.removeItem("access_token");
+
+    this.authService.logoutSuccess();
   }
 }
