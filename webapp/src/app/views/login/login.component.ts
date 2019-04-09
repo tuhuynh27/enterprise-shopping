@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "@services/auth/auth.service";
+
+import { NzMessageService } from "ng-zorro-antd";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -17,13 +21,45 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private message: NzMessageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
+      userName: [null, [Validators.required, Validators.minLength(1)]],
+      password: [null, [Validators.required, Validators.minLength(1)]]
     });
+  }
+
+  submitLogin() {
+    if (this.validateForm.valid) {
+      this.authService
+        .login({
+          name: this.validateForm.value.userName,
+          password: this.validateForm.value.password,
+          email: null
+        })
+        .subscribe(
+          data => {
+            this.authService.loginSuccess();
+
+            this.message.create(
+              "success",
+              `Welcome <strong>${data.name}</strong> back, have a nice day!`
+            );
+
+            this.router.navigate(["/"]);
+          },
+          () => {
+            this.message.create("error", "Username or password is wrong!");
+          }
+        );
+    } else {
+      this.validateForm.markAsDirty();
+    }
   }
 }

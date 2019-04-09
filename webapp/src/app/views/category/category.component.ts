@@ -66,6 +66,7 @@ export class CategoryComponent implements OnInit {
         .createCategory(this.addForm.value)
         .subscribe(data => {
           this.listCategories = this.listCategories.concat(data);
+          this.categoryService.setListCategories(this.listCategories);
 
           this.toggleAddModal();
         });
@@ -103,6 +104,8 @@ export class CategoryComponent implements OnInit {
             }
           });
 
+          this.categoryService.setListCategories(this.listCategories);
+
           this.toggleUpdateModal();
         });
     }
@@ -111,6 +114,8 @@ export class CategoryComponent implements OnInit {
   handleDelete(id: number) {
     this.categoryService.deleteCategory(id).subscribe(() => {
       this.listCategories = this.listCategories.filter(e => e.id !== id);
+
+      this.categoryService.setListCategories(this.listCategories);
     });
   }
 

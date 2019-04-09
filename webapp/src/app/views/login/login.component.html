@@ -3,7 +3,7 @@
   nz-form
   [formGroup]="validateForm"
   class="login-form"
-  (ngSubmit)="submitForm()"
+  (ngSubmit)="submitLogin()"
 >
   <nz-form-item>
     <nz-form-control>
@@ -45,7 +45,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <label nz-checkbox formControlName="remember">
+      <label nz-checkbox>
         <span>Remember me</span>
       </label>
       <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>

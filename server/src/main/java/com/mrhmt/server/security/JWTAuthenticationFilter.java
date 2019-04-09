@@ -3,6 +3,7 @@ package com.mrhmt.server.security;
 import com.auth0.jwt.JWT;
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import com.mrhmt.server.entities.User;
+import org.cloudinary.json.JSONObject;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,15 +47,25 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
+        Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         String token = JWT.create()
                 .withSubject(((UserDetails) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .withExpiresAt(expireDate)
                 .sign(HMAC512(SECRET.getBytes()));
 
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
         res.addHeader("Access-Control-Expose-Headers","Access-Token, Uid");
 
-        res.getWriter().write(token);
+        res.setContentType("application/json");
+
+        JSONObject tokenObj = new JSONObject();
+        tokenObj.put("token", token);
+        tokenObj.put("name", ((UserDetails) auth.getPrincipal()).getUsername());
+        tokenObj.put("expire", expireDate.getTime());
+        tokenObj.put("authorize", auth.getAuthorities());
+
+        res.getWriter().write(tokenObj.toString());
+
         res.getWriter().flush();
         res.getWriter().close();
     }

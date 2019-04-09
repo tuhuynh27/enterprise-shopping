@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -45,9 +48,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/**").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/**").permitAll()
+//                .antMatchers(HttpMethod.POST,"/**").permitAll()
+//                .antMatchers(HttpMethod.PUT, "/**").permitAll()
+//                .antMatchers(HttpMethod.DELETE,"/**").permitAll()
                 .antMatchers("/","/static/**","/**.{js,json,css}").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -60,5 +63,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/auth/**", new CorsConfiguration().applyPermitDefaultValues());
+
+        return source;
     }
 }

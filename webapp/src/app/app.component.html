@@ -92,7 +92,7 @@
           ><span class="nav-text">Shopping Cart</span></span
         >
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item *ngIf="!isLogged">
         <a routerLink="/login">
           <span
             ><i nz-icon type="user"></i
