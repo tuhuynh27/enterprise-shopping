@@ -21,7 +21,7 @@ import { CategoryViewComponent } from "./views/category-view/category-view.compo
 import { OrderComponent } from "./views/order/order.component";
 
 import { TimeAgoPipe } from "time-ago-pipe";
-import { CartComponent } from './views/cart/cart.component';
+import { CartComponent } from "./views/cart/cart.component";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -53,7 +53,7 @@ registerLocaleData(en);
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        whitelistedDomains: ["localhost:3000"]
+        whitelistedDomains: ["localhost:3000", "shop-api.fptu.tech"]
       }
     }),
     BrowserAnimationsModule
