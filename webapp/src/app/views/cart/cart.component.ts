@@ -90,6 +90,8 @@ export class CartComponent implements OnInit {
     if (!localStorage.getItem("access_token")) {
       this.message.create("error", "You must be logged in before checkout");
       this.router.navigate(["/login"]);
+
+      return;
     }
 
     this.orderService.createOrder(1, this.name).subscribe(data => {
