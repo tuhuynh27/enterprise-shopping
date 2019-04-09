@@ -9,6 +9,7 @@ import { ProductComponent } from "@views/product/product.component";
 import { SupplierComponent } from "@views/supplier/supplier.component";
 
 import { AuthGuardService as AuthGuard } from "@services/auth/auth-guard.service";
+import { CategoryViewComponent } from "@views/category-view/category-view.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: "signup",
     component: SignupComponent
+  },
+  {
+    path: "category/:id",
+    component: CategoryViewComponent
   },
   {
     path: "admin",
@@ -40,6 +45,10 @@ const routes: Routes = [
         component: ProductComponent
       }
     ]
+  },
+  {
+    path: "**",
+    redirectTo: "/"
   }
 ];
 

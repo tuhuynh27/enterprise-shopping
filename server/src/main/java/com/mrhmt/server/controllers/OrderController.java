@@ -1,6 +1,8 @@
 package com.mrhmt.server.controllers;
 
 import com.mrhmt.server.entities.Order;
+import com.mrhmt.server.entities.OrderDetail;
+import com.mrhmt.server.repositories.OrderDetailRepository;
 import com.mrhmt.server.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +13,12 @@ import java.util.Calendar;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
         this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     @GetMapping("")
@@ -26,6 +30,11 @@ public class OrderController {
     Order read(@PathVariable int id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found"));
+    }
+
+    @GetMapping("/{id}/view")
+    Iterable<OrderDetail> readDetail(@PathVariable int id) {
+        return orderDetailRepository.search(id);
     }
 
     @PostMapping("")

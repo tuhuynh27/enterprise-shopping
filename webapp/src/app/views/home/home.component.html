@@ -68,6 +68,22 @@
   </button>
 </ng-template>
 <nz-spin [nzSpinning]="loading">
+  <nz-empty
+    [nzNotFoundContent]="contentTpl"
+    [nzNotFoundFooter]="footerTpl"
+    *ngIf="listProducts.length === 0"
+    style="margin-bottom: 2rem"
+  >
+    <ng-template #contentTpl>
+      <span>No product found with keyword "{{ searchValue }}"</span>
+    </ng-template>
+    <ng-template #footerTpl>
+      <button nz-button nzType="secondary" (click)="reset()">
+        Back to list featured
+      </button>
+    </ng-template>
+  </nz-empty>
+
   <div nz-row [nzGutter]="8">
     <div
       *ngFor="let product of listProducts; i as index"
@@ -88,8 +104,8 @@
           [nzDescription]="product.description"
         ></nz-card-meta>
         <div style="margin-top: 10px;">
-          <p>Price: $500</p>
-          <p>Amount: 100</p>
+          <p>Price: ${{ product.price }}</p>
+          <p>Stock: {{ product.quantity || "Out of stock" }}</p>
           <p>
             <button
               (click)="addCart(product.name)"
@@ -115,7 +131,7 @@
     </div>
   </div>
 
-  <div style="text-align: center;">
+  <div style="text-align: center;" *ngIf="listProducts.length > 0">
     <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
   </div>
 </nz-spin>

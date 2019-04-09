@@ -47,7 +47,7 @@
         </span>
         <ul>
           <li nz-menu-item *ngFor="let category of listCategories">
-            <a routerLink="/admin/{{ category.id }}">
+            <a routerLink="/category/{{ category.id }}">
               <span
                 ><i nz-icon type="folder"></i
                 ><span class="nav-text">{{ category.name }}</span></span
@@ -78,6 +78,14 @@
           >
         </span>
         <ul>
+          <li nz-menu-item>
+            <a>
+              <span
+                ><i nz-icon type="shopping"></i
+                ><span class="nav-text">My Orders</span></span
+              >
+            </a>
+          </li>
           <li nz-menu-item>
             <a (click)="logout()">
               <span

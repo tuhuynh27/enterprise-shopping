@@ -15,12 +15,12 @@ public class OrderDetail implements Serializable {
 
     @NotNull
     @Min(value = 0)
-    private double discount;
+    private double discount = 0;
 
     @NotNull
-    @Min(value = 0)
+    @Min(value = 1)
     @Max(value = Long.MAX_VALUE, message = "Mus less than " + Long.MAX_VALUE)
-    private int quantity;
+    private int quantity = 1;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;

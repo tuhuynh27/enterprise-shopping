@@ -1,0 +1,55 @@
+<nz-divider
+  *ngIf="cateName"
+  [nzText]="listProducts.length + ' products of ' + cateName"
+></nz-divider>
+
+<nz-empty *ngIf="!cateName"></nz-empty>
+
+<nz-spin [nzSpinning]="loading">
+  <div nz-row [nzGutter]="8">
+    <div
+      *ngFor="let product of listProducts; i as index"
+      nz-col
+      [nzSpan]="8"
+      [nzLg]="6"
+      [nzMd]="8"
+      [nzXs]="12"
+    >
+      <nz-card
+        nzHoverable
+        style="width:240px"
+        [nzCover]="coverTemplate"
+        style="margin-bottom: 1rem;"
+      >
+        <nz-card-meta
+          [nzTitle]="product.name"
+          [nzDescription]="product.description"
+        ></nz-card-meta>
+        <div style="margin-top: 10px;">
+          <p>Price: ${{ product.price }}</p>
+          <p>Stock: {{ product.quantity || "Out of stock" }}</p>
+          <p>
+            <button
+              (click)="addCart(product.name)"
+              nz-button
+              nzType="primary"
+              nzBlock
+            >
+              <i nz-icon type="shopping-cart"></i>
+              Add to cart
+            </button>
+          </p>
+        </div>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img
+          alt="example"
+          src="{{
+            product.thumbnail ||
+              'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+          }}"
+        />
+      </ng-template>
+    </div>
+  </div>
+</nz-spin>

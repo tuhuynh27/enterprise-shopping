@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { Category } from "@models/category";
 import { BASE_URL } from "@config/endpoint";
+import { Product } from "@models/product";
 
 @Injectable({
   providedIn: "root"
@@ -22,6 +23,10 @@ export class CategoryService {
 
   public getCategory(id: number): Observable<Category> {
     return this.http.get<Category>(`${this.endpoint}/${id}`);
+  }
+
+  public getCategoryProducts(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.endpoint}/${id}/products`);
   }
 
   public createCategory(category: Category): Observable<Category> {

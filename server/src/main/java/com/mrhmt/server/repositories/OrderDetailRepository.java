@@ -15,6 +15,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderD
     @Query(value = "SELECT od FROM OrderDetail od")
     List<OrderDetail> paging(Pageable pageable);
 
-    @Query("SELECT od FROM OrderDetail od WHERE LOWER(od.orderDetailIdentify.order.id) = LOWER(:orderId)")
-    List<OrderDetail> search(@Param("orderId") String orderId);
+    @Query("SELECT od FROM OrderDetail od WHERE od.orderDetailIdentify.order.id = :orderId")
+    List<OrderDetail> search(@Param("orderId") int orderId);
 }

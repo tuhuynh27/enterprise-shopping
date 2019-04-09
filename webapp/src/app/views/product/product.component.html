@@ -39,7 +39,9 @@
       <td>{{ product.name }}</td>
       <td>${{ product.price }}</td>
       <td>{{ product.quantity }}</td>
-      <td>{{ product.thumbnail }}</td>
+      <td>
+        <img src="{{ product.thumbnail }}" style="max-width: 100px;" />
+      </td>
       <td>{{ product.category && product.category.name }}</td>
       <td>{{ product.supplier && product.supplier.name }}</td>
       <td>{{ product.valid === true ? "Valid" : "Invalid" }}</td>
