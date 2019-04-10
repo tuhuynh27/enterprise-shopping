@@ -13,4 +13,8 @@ export class UserService {
   public getUsers(): Observable<any> {
     return this.http.get(this.endpoint);
   }
+
+  public disableUser(id: number): Observable<any> {
+    return this.http.post(`${this.endpoint}/${id}/disable`, {});
+  }
 }

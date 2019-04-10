@@ -22,7 +22,7 @@
       <td>{{ user.createdDate | timeAgo }}</td>
       <td>{{ user.updatedDate | timeAgo }}</td>
       <td>
-        <a>Disable</a>
+        <a (click)="disableUser(user.id)">Disable</a>
       </td>
     </tr>
   </tbody>
