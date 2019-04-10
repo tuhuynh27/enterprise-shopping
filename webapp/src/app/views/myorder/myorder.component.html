@@ -1,0 +1,78 @@
+<h2>My Orders</h2>
+<nz-table
+  #orderTable
+  nzSize="middle"
+  [nzData]="listOrders"
+  [nzLoading]="loading"
+>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Order Date</th>
+      <th>Shipped</th>
+      <th>Modified</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orderTable.data">
+      <td>{{ order.id }}</td>
+      <td>{{ order.description }}</td>
+      <td>{{ order.orderDate | date: "medium" }}</td>
+      <td>{{ order.shipped === true ? "Shipped" : "Not shipped" }}</td>
+      <td>{{ order.modified | timeAgo }}</td>
+      <td>
+        <a (click)="toggleView(order.id)">View Order Details</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal
+  [(nzVisible)]="modalVisible"
+  [nzTitle]="'Order Details #' + orderDetailId"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="closeModal()"
+  nzWidth="832"
+  nzOkText="Okay"
+  nzCancelText="Close"
+>
+  <nz-alert
+    nzType="info"
+    [nzMessage]="'Total fee: $' + totalFee"
+    style="margin-bottom: 1rem"
+  ></nz-alert>
+  <nz-table
+    #orderDetailTable
+    [nzData]="orderDetailData"
+    [nzPageSize]="2"
+    [nzLoading]="loading"
+  >
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Thumbnail</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Quantity</th>
+        <th>Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of orderDetailTable.data">
+        <td>{{ data.orderDetailIdentify.product.name }}</td>
+        <td>
+          <img
+            src="{{ data.orderDetailIdentify.product.thumbnail }}"
+            style="max-width: 100px"
+          />
+        </td>
+        <td>${{ data.orderDetailIdentify.product.price }}</td>
+        <td>{{ data.discount }}%</td>
+        <td>{{ data.quantity }}</td>
+        <td>{{ data.modified | timeAgo }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

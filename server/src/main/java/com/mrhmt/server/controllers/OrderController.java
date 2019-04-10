@@ -2,9 +2,12 @@ package com.mrhmt.server.controllers;
 
 import com.mrhmt.server.entities.Order;
 import com.mrhmt.server.entities.OrderDetail;
+import com.mrhmt.server.entities.User;
 import com.mrhmt.server.repositories.OrderDetailRepository;
 import com.mrhmt.server.repositories.OrderRepository;
+import com.mrhmt.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,11 +18,13 @@ import java.util.Calendar;
 public class OrderController {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
+    public OrderController(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("")
@@ -38,10 +43,22 @@ public class OrderController {
         return orderDetailRepository.search(id);
     }
 
+    @GetMapping("/my")
+    Iterable<Order> readMyOrders(Authentication authentication) {
+        User user = userRepository.findByName(authentication.getName()).orElseThrow(() -> new RuntimeException("User not found"));
+
+        return orderRepository.findOrdersByUserId(user.getId());
+    }
+
     @PostMapping("")
-    Order create(@RequestBody Order newOrder) {
+    Order create(@RequestBody Order newOrder, Authentication authentication) {
         newOrder.setOrderDate(Calendar.getInstance().getTime());
         newOrder.setModified(Calendar.getInstance().getTime());
+
+        // Get user
+        User user = userRepository.findByName(authentication.getName()).orElseThrow(() -> new RuntimeException(("User not found")));
+        newOrder.setUserId(user.getId());
+
         return orderRepository.save(newOrder);
     }
 

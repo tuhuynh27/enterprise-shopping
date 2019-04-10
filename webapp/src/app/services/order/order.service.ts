@@ -14,6 +14,10 @@ export class OrderService {
     return this.http.get(`${this.endpoint}`);
   }
 
+  public getMyOrders() {
+    return this.http.get(`${this.endpoint}/my`);
+  }
+
   public getOrderDetails(id: any) {
     return this.http.get(`${this.endpoint}/${id}/view`);
   }
