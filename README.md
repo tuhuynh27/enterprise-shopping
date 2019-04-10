@@ -1,12 +1,14 @@
-# Enterprise Shopping Online with Enterprise and Verbose Stack
+# Enterprise Shopping with Fucking Verbose Stack
 
-## Development
+## Installation
 
-With Docker and Docker Compose:
+With **only Docker installed**, and you run:
 
 ```
 docker-compose up
 ```
+
+That's all.
 
 ## Stack
 
@@ -22,6 +24,8 @@ docker-compose up
 
 - Angular 7
 
-### DBMS: MySQL
+### Database: built-in MySQL
 
-Dockerized all parts.
+**Dockerized** all parts.
+
+![Demo](https://i.imgur.com/NwGoLY3.png)
