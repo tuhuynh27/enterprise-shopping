@@ -98,11 +98,11 @@
         style="width:240px"
         [nzCover]="coverTemplate"
         style="margin-bottom: 1rem;"
-        (click)="toggleDetail(product.id)"
       >
         <nz-card-meta
           [nzTitle]="product.name"
           [nzDescription]="product.description"
+          (click)="toggleDetail(product.id)"
         ></nz-card-meta>
         <div style="margin-top: 10px;">
           <p>Price: ${{ product.price }}</p>
