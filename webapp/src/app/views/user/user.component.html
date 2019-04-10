@@ -1,0 +1,29 @@
+<h2>List Users</h2>
+<nz-table #basicTable nzSize="small" [nzData]="listUsers" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Emai</th>
+      <th>Role</th>
+      <th>Active</th>
+      <th>Created Date</th>
+      <th>Updated Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of basicTable.data">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.active === true ? "Activated" : "Not activated" }}</td>
+      <td>{{ user.createdDate | timeAgo }}</td>
+      <td>{{ user.updatedDate | timeAgo }}</td>
+      <td>
+        <a>Disable</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

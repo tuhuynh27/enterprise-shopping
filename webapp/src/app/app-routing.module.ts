@@ -13,6 +13,7 @@ import { CategoryViewComponent } from "@views/category-view/category-view.compon
 import { OrderComponent } from "@views/order/order.component";
 import { CartComponent } from "@views/cart/cart.component";
 import { MyorderComponent } from "@views/myorder/myorder.component";
+import { UserComponent } from "@views/user/user.component";
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
       {
         path: "order",
         component: OrderComponent
+      },
+      {
+        path: "user",
+        component: UserComponent
       }
     ]
   },
