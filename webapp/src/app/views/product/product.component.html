@@ -104,15 +104,30 @@
         />
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
+    <nz-form-item style="margin-bottom: 0;">
       <nz-form-label [nzSpan]="4">Thumb</nz-form-label>
-      <nz-form-control [nzSpan]="14">
+      <nz-form-control [nzSpan]="10">
         <input
           nz-input
           formControlName="thumbnail"
           placeholder="Enter thumbnail"
         />
       </nz-form-control>
+      <nz-form-control [nzSpan]="4">
+        <button
+          type="button"
+          nz-button
+          nzType="dashed"
+          style="margin-left: 0.5rem;"
+          (click)="fakeUpload()"
+          [nzLoading]="fakeLoading"
+        >
+          Upload
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="fakeThumb.trim()">
+      <img src="{{ fakeThumb }}" style="max-width: 100px; margin-left: 78px;" />
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="4">Category</nz-form-label>

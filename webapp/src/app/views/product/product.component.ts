@@ -22,9 +22,11 @@ export class ProductComponent implements OnInit {
   addForm: FormGroup;
   updateModalVisible = false;
   updateForm: FormGroup;
+  fakeThumb = "";
 
   searchValue = "";
   loading = false;
+  fakeLoading = false;
 
   constructor(
     private productService: ProductService,
@@ -111,6 +113,7 @@ export class ProductComponent implements OnInit {
 
   toggleAddModal() {
     this.addForm.reset();
+    this.fakeThumb = "";
 
     this.addModalVisible = !this.addModalVisible;
   }
@@ -198,4 +201,19 @@ export class ProductComponent implements OnInit {
     this.loading = false;
     // tslint:disable-next-line: semicolon
   };
+
+  fakeUpload(): void {
+    this.fakeLoading = true;
+
+    setTimeout(() => {
+      this.addForm.controls["thumbnail"].setValue(
+        "https://cdn.tgdd.vn/Products/Images/42/179673/huawei-nova-3i-trang-chipu-400x400.jpg"
+      );
+
+      this.fakeThumb =
+        "https://cdn.tgdd.vn/Products/Images/42/179673/huawei-nova-3i-trang-chipu-400x400.jpg";
+
+      this.fakeLoading = false;
+    }, 2000);
+  }
 }
