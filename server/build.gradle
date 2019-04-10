@@ -63,3 +63,5 @@ dependencies {
 bootJar {
     mainClassName = 'com.mrhmt.server.App'
 }
+
+mainClassName = 'com.mrhmt.server.App'

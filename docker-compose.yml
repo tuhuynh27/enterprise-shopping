@@ -33,7 +33,7 @@ services:
     container_name: db-dev
     restart: always
     environment:
-      MYSQL_DATABASE: "dev_db"
+      MYSQL_DATABASE: "spring_shop"
       MYSQL_USER: "dev"
       MYSQL_PASSWORD: "12345678"
       MYSQL_ROOT_PASSWORD: "12345678"
