@@ -29,7 +29,7 @@ services:
       - ./webapp/src:/root/src/app/src
     tty: true
   database:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: db-dev
     restart: always
     environment:
