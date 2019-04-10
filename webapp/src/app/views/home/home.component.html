@@ -98,6 +98,7 @@
         style="width:240px"
         [nzCover]="coverTemplate"
         style="margin-bottom: 1rem;"
+        (click)="toggleDetail(product.id)"
       >
         <nz-card-meta
           [nzTitle]="product.name"
@@ -136,3 +137,22 @@
     <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
   </div>
 </nz-spin>
+
+<nz-modal [(nzVisible)]="detailModal" (nzOnCancel)="close()" (nzOnOk)="close()">
+  <p style="text-align: center; font-size: 1.5rem;">
+    <strong>{{ detail && detail.name }}</strong>
+  </p>
+  <p style="margin-top: 1rem; text-align: center;">
+    <img src="{{ detail && detail.thumbnail }}" style="max-width: 200px;" />
+  </p>
+  <p style="margin-top: 2rem; margin-bottom: 1rem;">
+    "<i>{{ detail && detail.description }}</i
+    >"
+  </p>
+  <p><strong>Price</strong>: {{ detail && detail.price }}</p>
+  <p>
+    <strong>Stock</strong>: {{ (detail && detail.quantity) || "Out of stock" }}
+  </p>
+  <p><strong>Category:</strong> {{ detail && detail.category.name }}</p>
+  <p><strong>Supplier:</strong> {{ detail && detail.supplier.name }}</p>
+</nz-modal>

@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
   searchValue = "";
   loading = false;
 
+  detail: {};
+  detailModal = false;
+
   constructor(
     private productService: ProductService,
     private message: NzMessageService
@@ -59,6 +62,18 @@ export class HomeComponent implements OnInit {
     this.loading = true;
 
     setTimeout(this.searchFilter, 400);
+  }
+
+  toggleDetail(id: number) {
+    this.productService.getProduct(id).subscribe(data => {
+      this.detail = data;
+
+      this.detailModal = true;
+    });
+  }
+
+  close() {
+    this.detailModal = false;
   }
 
   searchFilter = () => {
